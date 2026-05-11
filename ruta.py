@@ -189,6 +189,27 @@ class ObstaculoTemporal:
 
 
 
+# =========================================================================
+# 📦 CLASE HIJA: AGUA TEMPORAL
+# * Hereda de ObstaculoTemporal y representa un obstáculo de agua.
+# =========================================================================
+
+class AguaTemporal(ObstaculoTemporal): # Clase hija
+    # ---------------------------------------------------------------
+    # * Constructor: Solicita la informacion del obstaculo temporal
+    # ---------------------------------------------------------------
+    def __init__(self, fila, columna, simbolo="🌊"): 
+
+        super().__init__(fila, columna, simbolo) # llama al constructor del padre para que el objeto actual herede e inicialice esos atributos y métodos.
+#        │       │        │       │          │
+#        │       │        │       │          └─  Valor que se pasa al parámetro "simbolo" del constructor del padre (🌊)
+#        │       │        │       └────────────  Valor de la columna, que también se pasa al padre
+#        │       │        └────────────────────  Valor de la fila, que también se pasa al padre
+#        │       └─────────────────────────────  Método "__init__" de la clase padre (el constructor original de ObstaculoTemporal)
+#        └─────────────────────────────────────  "super()" devuelve una referencia al padre para poder usar sus métodos
+
+
+
 # ===============================================================
 # BLOQUE EJECUTOR: 
 # Pide los datos iniciles para generar el mapa al usuario
