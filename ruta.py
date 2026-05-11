@@ -348,6 +348,24 @@ class BuscadorAEstrella:
                     prioridad = costo_final + self.Huristica(destino, vecino)  # Costo real + estimacion de lo que falta = (costo total)
                     heapq.heappush(frontera, (prioridad, vecino) )             # Agregamos ese vecino a la lista de exploracion (frontera)
                     de_donde_vengo[vecino] = actual                            # Recordamos de donde venimos (Cargando esa posicion actual en la lista)
+        
+        #--------------------------------------
+        # Reconstruccion del camino
+        #--------------------------------------
+        camino = []      # Lista donde guardaremos los Pasos desde el destino hasta el inicio
+        actual = destino # Empezaremos desde el "destino" por que de ahi podemos retroceder
+
+        # Bucle que recorre el camino hacia atras
+        while actual != inicio: # Seguira mientras la selda actual sea diferente del inicio
+
+            camino.append(actual)               # Agrega la celda actual al camino
+            actual = de_donde_vengo.get(actual) # Actualiza la variable actual con el valor de la celda anterior a la que analiza actalmente
+            if actual is None:                  # Si actual no aparece en "de_donde_vengo" no hay conexion en el camino...
+                return []                       # Y devuelve una lista vacia
+        
+        camino.append(inicio) # Agregamos el punto de inicio a la lista de camino
+        camino.reverse()      # Invertimos la lista para que valla de inicia a destino
+        return camino         # Retorbamos el camino reconstruido
 
 
 
