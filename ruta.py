@@ -170,6 +170,25 @@ class Jugador():
 
 
 
+# =========================================================================
+# 📦 BLOQUE 3: CLASE OBSTACULOS TEMPORALES
+# * Contiene la lógica para generar un obstaculo temporal con su posicion.
+# =========================================================================
+
+class ObstaculoTemporal:
+    
+    # ---------------------------------------------------------------
+    # * Constructor: Solicita la informacion del obstaculo temporal
+    # ---------------------------------------------------------------
+#====================== ATRIBUTOS ==========================================
+    def __init__(self, fila, columna, simbolo="⚠️"):
+
+        self.fila    = fila
+        self.columna = columna
+        self.simbolo = simbolo
+
+
+
 # ===============================================================
 # BLOQUE EJECUTOR: 
 # Pide los datos iniciles para generar el mapa al usuario
