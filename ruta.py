@@ -405,8 +405,6 @@ if __name__ == "__main__":
     # Creamos un jugador (objeto de la clase jugador)
     jugador = Jugador(fila_jugador, columna_jugador) 
 
-    mapa.mostrar(jugador)
-
 #------------------------------------
 # CREAR SEGUNDO JUGADOR:
 #------------------------------------
@@ -422,4 +420,19 @@ if __name__ == "__main__":
     else: 
         print("No se genero un segundo jugador")
 
-    mapa.mostrar(jugador)
+
+#------------------------------------
+# CREAR DESTINO:
+#------------------------------------
+
+    # Pedimos la posicion del destino:
+    fila_destino    = int(input("Ingrese Fila del destino: "))
+    columna_destino = int(input("Ingrese Columna del destino: "))
+    destino = Destino(fila_destino, columna_destino) # Creamos un destino (objeto de la clase destino) 
+
+
+    # Mostramos el mapa creado
+    print("\n Mapa inicial")
+    mapa.mostrar(jugador, destino, jugador2) # Insertamos las coordenadas de las clases jugador y destino para el mapa
+    # (Usando el metodo mostrar)
+
