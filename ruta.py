@@ -560,3 +560,25 @@ if __name__ == "__main__":
         # --- No hay camino ---
         if not camino:
             print("No se encontro ningun camino posible con los nuevos obstaculos")
+        
+        # --- Si hay camino ---
+        else:
+            # --- No hay camino jugador 2 ---
+            if jugador2 is not None and not camino_2:
+                print("El jugador 2 no tiene ruta")
+
+            # --- Informacion sobre los caminos ---
+            print(f"Nueva Ruta encontrada: P1({len(camino)}) pasos,  P2({len(camino_2)}) pasos:")
+            print("La ruta puede pasar por el agua o obstaculos temporales aun que tengan mayor peso")
+
+            # --- Pintar la nueva ruta ---
+            for paso in camino + camino_2: # recorremos las coordenadas de camino
+                r, col = paso              # Desempaquetamos
+                if mapa.grid[r][col] in (0,2,3) : # Solo pinta la celda si es transitable
+                    mapa.grid[r][col] = 4  # Reemplazarlo por el valor de la ruta
+
+            mapa.mostrar(jugador, destino, jugador2) # Mostramos el nuevo mapa actualizado
+
+    print("\nProgram finalizado.")
+    print("")
+    print("")
