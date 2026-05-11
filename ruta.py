@@ -530,7 +530,7 @@ if __name__ == "__main__":
                 print("❌ Esa agua bloquea totalmente el mapa")
                 continue
         
-        
+
         #---------------------------------------------------------------
         # Limpiar camino anterior (solo las celdas de la ruta/camino)
         #---------------------------------------------------------------
@@ -542,3 +542,21 @@ if __name__ == "__main__":
                 if mapa.grid[r][col] == 4:
                     mapa.grid[r][col] = 0
         
+
+        #------------------------------------
+        # Recalculamos la ruta actualizada
+        #------------------------------------
+
+        print("Recalculando ruta...")
+        camino   = buscador.calcular_ruta(inicio, fin) # Ruta jugador 1
+        camino_2 = []                                  # Lista del camino 2
+
+        # --- Segundo jugador opcional ---
+        if jugador2 is not None:
+            camino_2 = buscador.calcular_ruta(inicio2, fin)
+
+        print("NUEVA RUTA CALCULADA: ")
+
+        # --- No hay camino ---
+        if not camino:
+            print("No se encontro ningun camino posible con los nuevos obstaculos")
