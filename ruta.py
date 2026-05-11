@@ -48,6 +48,9 @@ class Mapa():
             self.grid[0][c]        = 2
             self.grid[rows - 1][c] = 2
 
+        # Generamos los edificios con su metodo
+        self.generar_edificios()
+
 
 #====================== METODOS ==========================================
 
@@ -103,6 +106,38 @@ class Mapa():
                     self.grid[fila + i][columna + j] = 1   
 
 
+    # -----------------------------------------------------------
+    # * generar_edificios: calcula y distribuye de forma aleatoria
+    # la cantidad de edificos que caben en el mapa
+    # -----------------------------------------------------------
+
+    def generar_edificios(self):
+        """
+        Coloca edificios 2x2 en una cuadrícula ordenada,
+        separados por un espacios entre bloques y evitando los bordes
+        """
+
+        # Genera listas de posiciones posibles para colocar edificios evitando bordes y con espacio de separación
+        filas_disponibles = list(range(1, self.rows - 2, 3))
+        cols_disponibles = list(range(1, self.cols - 2, 3))
+        # Empiezaa desde 1  (para no tocar el borde de agua)
+        # rows - 2          (evita que salga del mapa)
+        # avanza de 3 en 3  (para dejar espacios libres entre edificios)
+
+
+        # Limitar la cantidad de edificios al tamaño posible
+        max_edificios = len(filas_disponibles) * len(cols_disponibles) # multiplica la cantidad de listas de filas y columnas posibles, para tener el numero de combinaciones maximo de edificios
+        cantidad = min(self.edificios, max_edificios) # Toma el numero minimo entre el numero de comb. max. de edificios y la cantidad pedida
+
+        # Mezclar las posiciones para distribuir edificios
+        posiciones = [(r, c) for r in filas_disponibles for c in cols_disponibles] # Une las listas de fila con columnas para formar una coordenada y la agrega al diccionario de posiciones
+        random.shuffle(posiciones) # shuffle Revuelve el orden de las posiciones 
+
+        # Bucle para colocar los edificios 1 por 1
+        for i in range(cantidad):             # itera sobre la cantidad de edificios solicitados
+            fila, col = posiciones[i]         # Toma el valor aleatorio de una de las posiciones de los edificos y los separa en f, c
+            self.agregar_edificio(fila, col)  # Llama a la funcion agregar edificio pasandole esos valores, para que genere un edificio 2x2 en esa ubicacion
+
 
 # ========================================================================
 # BLOQUE 2: CLASE JUGADOR
@@ -156,9 +191,10 @@ if __name__ == "__main__":
 # CREAR JUGADOR:
 #------------------------------------
     
-    # Pedimos la posicion del jugador:
+    # Pedimos la posicion del jugador y numero de edificios:
     fila_jugador    = int(input("Ingrese la fila del personaje: "))
     columna_jugador = int(input("Ingrese la columna del personaje: "))
+    num_edificios = int(input("Cantidad de edificios: "))
 
     # Creamos un jugador (objeto de la clase jugador)
     jugador = Jugador(fila_jugador, columna_jugador) 
