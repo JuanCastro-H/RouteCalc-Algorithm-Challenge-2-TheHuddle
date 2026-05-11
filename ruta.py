@@ -478,3 +478,54 @@ if __name__ == "__main__":
         
         mapa.mostrar(jugador,destino, jugador2) # Mostramos el nuevo mapa con la ruta encontrada
         print("La ruta puede pasar por el agua y obstaculos temporales, aun que estos tengan mayor costo")
+
+#------------------------------------
+# CREACION DE UN OBSTACULO TEMPORAL:
+#------------------------------------
+
+    # --- Bucle para agregar obstaculos ---
+    while True: 
+        # --- Ocion a realizar ---
+        opcion = input("Desea agregar un obstaculo temporal o agua temporal? (o=obs a=agua /n=no): ").lower()
+        
+        # --- No se quiere crear ---
+        if opcion == "n":
+            break
+
+        # --- Solicitar coordenadas ---
+        print("Los obstaculos temporales no se pueden poner en el agua o edificios")
+        f = int(input("Fila: "))
+        c = int(input("Columna: "))
+
+
+        # --- OBSTACULO TEMPORAL ---
+        if opcion == "o":
+
+            if mapa.grid[f][c] in (1, 2): # Verificamos si se puede colocar un obstaculo en ese lugar
+                print("⚠️ No puedes colocar un obstáculo ahí")
+                continue
+            
+            # Y Colocamos el obstáculo de forma temporal
+            mapa.grid[f][c] = 3
+
+            # Verificamos si todavía existe un camino
+            if not buscador.calcular_ruta(inicio, fin):
+                mapa.grid[f][c] = 0  # Revertimos el cambio
+                print("❌ Ese obstáculo bloquea totalmente el mapa")
+                continue
+        
+        # --- OBSTACULO DE AGUA ---
+        elif opcion == "a":
+
+            if mapa.grid[f][c] in (1, 2): # Verificamos si se puede colocar un obstaculo en ese lugar
+                print("⚠️ No puedes colocar un obstáculo ahí")
+                continue
+
+            # Colocamos el obstáculo de forma temporal
+            mapa.grid[f][c] = 2
+
+            # Verificamos si todavía existe un camino
+            if not buscador.calcular_ruta(inicio, fin):
+                mapa.grid[f][c] = 0
+                print("❌ Esa agua bloquea totalmente el mapa")
+                continue
