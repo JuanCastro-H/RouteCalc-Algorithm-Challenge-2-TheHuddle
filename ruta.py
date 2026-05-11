@@ -37,14 +37,33 @@ class Mapa():
         # GENERAMOS EL MAPA
         self.grid = [ [0 for _ in range(cols)] for _ in range(rows) ]
 
-        # RODEAR LOS BORDES DEL MAPA
-        for r in range(rows): # El bucle recorre la primera y ultima fila y cambia su valor 
+        # RODEAR CON AGUA LOS BORDES
+        for r in range(rows): # El bucle recorre la primera y ultima fila
+
             self.grid[r][0]        = 2
             self.grid[r][cols - 1] = 2
 
-        for c in range(cols): # El bucle recorre por todas las columnas de la ezquierda y derecha y las cambia su valor
+        for c in range(cols): # El bucle recorre por todas las columnas de la ezquierda y derecha 
             self.grid[0][c]        = 2
             self.grid[rows - 1][c] = 2
+
+
+#====================== METODOS ==========================================
+
+    # -----------------------------------------------------------
+    # * set_celda: cambia el valor de una celda por el asignado
+    # -----------------------------------------------------------
+
+    def set_celda(self, r, c, valor):
+        # Cambia el valor de una celd si esta dentro del mapa
+
+        if 0 <= r < self.rows and 0 <= c < self.cols: # Verifica si la celda a cambiar esta dentro del mapa
+            self.grid[r][c] = valor                   # El valor es el numero que representa lo que estara en esa ubicacion dentro del mapa
+        else:
+            print("La coordenada esta fuera del mapa capo")
+
+    
+
 
 
 
@@ -106,3 +125,5 @@ if __name__ == "__main__":
 
     # Creamos un jugador (objeto de la clase jugador)
     jugador = Jugador(fila_jugador, columna_jugador) 
+
+
