@@ -272,6 +272,31 @@ class BuscadorAEstrella:
 
         # Retornamos la "Distancia Manhattan"
         return abs( a[0] - b[0] ) + abs( a[1] - b[1] )
+    
+
+    #-------------------------------------------------------------------------
+    # Vecinos validos: Buscamos las celdas vecinas que son transitables
+    #-------------------------------------------------------------------------
+
+    def vecinos_validos(self, nodo):
+
+        r, c = nodo
+        direcciones = [ (-1,0), (1,0), (0,-1), (0,1) ] # Arriba, Abajo, izq, der
+        resultado   = [] #lista para vecinos validos
+
+        # iteramos sobre los elementos de direcciones (filas , columnas)
+        for dr, dc, in direcciones:
+            nr, nc = r + dr, c + dc # Calculamos la nueva posicion, con una suma del movimiento a reaalizar mas la actual
+
+            # Verificamos si la nueva posicion esta dentro del mapa
+            if 0 <= nr < self.mapa.rows and 0 <= nc < self.mapa.cols:
+                celda = self.mapa.grid[nr][nc] # Y Buscamos el valor de esa celda en el mapa, osea que cosa ahi en ese lugar
+
+                # Verificamos que esa celda no sea un edificio
+                if self.costos[celda] != float("inf"): # Si no esta bloqueado (edificio)
+                    resultado.append( (nr,nc) ) # La agregamos a la lista de resultados
+
+        return resultado # Retornamos la lista de vecinos validosPrimero
 
 
 # ===============================================================
