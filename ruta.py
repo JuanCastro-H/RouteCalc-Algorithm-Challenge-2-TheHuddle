@@ -263,6 +263,15 @@ class BuscadorAEstrella:
         }
     
 
+#====================== METODOS ==========================================
+    #----------------------------------------------------------------
+    # Huristica: Calculamos que tan lejos esta el punto "a" de "b"
+    #----------------------------------------------------------------
+
+    def Huristica(self, a, b):
+
+        # Retornamos la "Distancia Manhattan"
+        return abs( a[0] - b[0] ) + abs( a[1] - b[1] )
 
 
 # ===============================================================
