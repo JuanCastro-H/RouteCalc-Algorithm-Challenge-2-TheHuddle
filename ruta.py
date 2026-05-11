@@ -63,6 +63,31 @@ class Mapa():
             print("La coordenada esta fuera del mapa capo")
 
     
+    # -----------------------------------------------------------
+    # * mostrar: imprime el mapa con emojis representativos
+    # -----------------------------------------------------------
+
+    def mostrar(self, jugador=None):
+
+        # Simbolos del mapa asociados a sus numeros
+        simbolos = {0: "⬛", 1: "🏢", 2: "🌊", 3: "⚠️ ", 4: "🟩"} # "⬛" = camino libre, "🏢" obstaculo fijo, "🌊" agua, "⚠️ " obs temporal, "🟩" ruta a destino, "?" desconocido
+
+        # Recorre las filas y columnas
+        for r in range(self.rows):
+            fila_visual = [] # Lista donde se ira guardando fila a fila para irla imprimiendo
+            for c in range(self.cols):
+                    
+                # Dibuja el simbolo cuando el valor de la posicion coincida
+                    # JUGADOR:
+                    if jugador and (r, c) == jugador.posicion():
+                        fila_visual.append(jugador.simbolo)       # Mete al jugador en el mapa
+                    else:
+                        fila_visual.append(simbolos.get(self.grid[r][c], "?"))  # Simbolos.get(v,"?") busca el emoji asociado al valor del numero,
+                                                                                # Si no lo encuentra pone: "?""
+
+            print(" ".join(fila_visual)) # Se va imprimiendo fila a fila el mapa/grilla
+        print() # Separador
+
 
 
 
@@ -125,5 +150,7 @@ if __name__ == "__main__":
 
     # Creamos un jugador (objeto de la clase jugador)
     jugador = Jugador(fila_jugador, columna_jugador) 
+
+    mapa.mostrar(jugador)
 
 
