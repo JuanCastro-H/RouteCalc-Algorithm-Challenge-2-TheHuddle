@@ -23,10 +23,12 @@ print("Tamanhos del mapa recomendados 7x7, 10x10, 13x13, 16x16, 19x19...")
 
 class Mapa():
 
+#====================== ATRIBUTOS ==========================================
+
     # -----------------------------------------------------------
     # * Constructor: inicializa el mapa, bordes y edificios
     # -----------------------------------------------------------
-#====================== ATRIBUTOS ==========================================
+
     def __init__(self, rows, cols):
 
         self.rows = rows
@@ -46,6 +48,37 @@ class Mapa():
 
 
 
+# ========================================================================
+# BLOQUE 2: CLASE JUGADOR
+# * Contiene toda la lógica para generar un jugador y obtener su posicion.
+# ========================================================================
+
+class Jugador():
+
+#====================== ATRIBUTOS ==========================================
+
+    # -----------------------------------------------------------
+    # * Constructor: Solicita la informacion del jugador
+    # -----------------------------------------------------------
+
+    def __init__(self, fila, colum, simbolo= "😀"):
+        # Posicion inicial
+        self.fila    = fila
+        self.columna = colum
+        self.simbolo = simbolo
+
+#====================== METODO ==========================================
+
+    # -----------------------------------------------------------
+    # * posicion: Devuelve la posicion del jugador
+    # -----------------------------------------------------------
+
+    def posicion(self):
+        # Devuelve la posicion actual
+        return (self.fila, self.columna)
+
+
+
 # ===============================================================
 # BLOQUE EJECUTOR: 
 # Pide los datos iniciles para generar el mapa al usuario
@@ -62,3 +95,14 @@ if __name__ == "__main__":
     columnas = int(input("Columnas del mapa: "))
 
     mapa = Mapa(filas, columnas)
+
+#------------------------------------
+# CREAR JUGADOR:
+#------------------------------------
+    
+    # Pedimos la posicion del jugador:
+    fila_jugador    = int(input("Ingrese la fila del personaje: "))
+    columna_jugador = int(input("Ingrese la columna del personaje: "))
+
+    # Creamos un jugador (objeto de la clase jugador)
+    jugador = Jugador(fila_jugador, columna_jugador) 
