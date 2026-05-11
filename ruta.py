@@ -210,6 +210,33 @@ class AguaTemporal(ObstaculoTemporal): # Clase hija
 
 
 
+# ======================================================================
+# 📦 BLOQUE 4: CLASE DESTINO
+# * Contiene la lógica para generar el destino y obtener su posicion.
+# ======================================================================
+
+class Destino():
+
+    # -----------------------------------------------------------
+    # * Constructor: Solicita la informacion del destino
+    # -----------------------------------------------------------
+#====================== ATRIBUTOS ==========================================
+    def __init__(self, fila, columna, simbolo="⭐"):
+
+        self.fila    = fila
+        self.columna = columna
+        self.simbolo = simbolo
+
+    # -----------------------------------------------------------
+    # * Constructor: Retorna la posicion del destino
+    # -----------------------------------------------------------
+#====================== METODOS ==========================================
+    def posicion(self):
+        return (self.fila, self.columna) # Retorna posicion
+    
+    
+
+
 # ===============================================================
 # BLOQUE EJECUTOR: 
 # Pide los datos iniciles para generar el mapa al usuario
