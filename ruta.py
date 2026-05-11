@@ -171,7 +171,7 @@ class Jugador():
 
 
 # =========================================================================
-# 📦 BLOQUE 3: CLASE OBSTACULOS TEMPORALES
+# BLOQUE 3: CLASE OBSTACULOS TEMPORALES
 # * Contiene la lógica para generar un obstaculo temporal con su posicion.
 # =========================================================================
 
@@ -190,7 +190,7 @@ class ObstaculoTemporal:
 
 
 # =========================================================================
-# 📦 CLASE HIJA: AGUA TEMPORAL
+# CLASE HIJA: AGUA TEMPORAL
 # * Hereda de ObstaculoTemporal y representa un obstáculo de agua.
 # =========================================================================
 
@@ -211,7 +211,7 @@ class AguaTemporal(ObstaculoTemporal): # Clase hija
 
 
 # ======================================================================
-# 📦 BLOQUE 4: CLASE DESTINO
+# BLOQUE 4: CLASE DESTINO
 # * Contiene la lógica para generar el destino y obtener su posicion.
 # ======================================================================
 
@@ -233,8 +233,36 @@ class Destino():
 #====================== METODOS ==========================================
     def posicion(self):
         return (self.fila, self.columna) # Retorna posicion
+
+
+
+# ======================================================================
+# ======================================================================
+#  BLOQUE 5: CLASE BUSCADOR A ESTRELLA
+# * Contiene la lógica para calcular la ruta de menor costo
+# ======================================================================
+# ======================================================================
+
+class BuscadorAEstrella:
     
+#====================== ATRIBUTOS ==========================================
+    # -----------------------------------------------------------
+    # * Constructor: Recibe la informacion del mapa y otorga valores a las celdas
+    # -----------------------------------------------------------
+    def __init__(self, mapa):
+
+        self.mapa = mapa # Guardamos una referencia al mapa (objeto)
+        
+        # Costos de las celdas
+        self.costos = {
+            0: 1,            # "" Camino normal
+            1: float("inf"), # "" Edificio (Bloqueado)
+            2: 2,            # "" Agua (Transitable pero con costo)
+            3: 6,            # "" Obstaculo temporal (Transitable muy alto costo)
+            4: 1             # "" 🟩 ruta creada
+        }
     
+
 
 
 # ===============================================================
