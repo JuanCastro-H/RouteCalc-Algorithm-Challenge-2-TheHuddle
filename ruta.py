@@ -11,3 +11,54 @@
 # =====================================
 
 import random
+# random: libreria que sirve para crear numeros aleatorios con diferentes herramientas
+
+
+# --- Recomendacion de tamanho ---
+print("Tamanhos del mapa recomendados 7x7, 10x10, 13x13, 16x16, 19x19...")
+
+# ======================================================================
+# BLOQUE 1: CLASE MAPA
+# ======================================================================
+
+class Mapa():
+
+    # -----------------------------------------------------------
+    # * Constructor: inicializa el mapa, bordes y edificios
+    # -----------------------------------------------------------
+#====================== ATRIBUTOS ==========================================
+    def __init__(self, rows, cols):
+
+        self.rows = rows
+        self.cols = cols
+
+        # GENERAMOS EL MAPA
+        self.grid = [ [0 for _ in range(cols)] for _ in range(rows) ]
+
+        # RODEAR LOS BORDES DEL MAPA
+        for r in range(rows): # El bucle recorre la primera y ultima fila y cambia su valor 
+            self.grid[r][0]        = 2
+            self.grid[r][cols - 1] = 2
+
+        for c in range(cols): # El bucle recorre por todas las columnas de la ezquierda y derecha y las cambia su valor
+            self.grid[0][c]        = 2
+            self.grid[rows - 1][c] = 2
+
+
+
+# ===============================================================
+# BLOQUE EJECUTOR: 
+# Pide los datos iniciles para generar el mapa al usuario
+# ===============================================================
+
+if __name__ == "__main__":
+
+#------------------------------------
+# CREAR MAPA:
+#------------------------------------
+
+    # Pedimos primero el tamanho del mapa 
+    filas = int(input("Filas del mapa: "))
+    columnas = int(input("Columnas del mapa: "))
+
+    mapa = Mapa(filas, columnas)
