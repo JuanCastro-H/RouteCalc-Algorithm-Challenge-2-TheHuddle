@@ -529,3 +529,16 @@ if __name__ == "__main__":
                 mapa.grid[f][c] = 0
                 print("❌ Esa agua bloquea totalmente el mapa")
                 continue
+        
+        
+        #---------------------------------------------------------------
+        # Limpiar camino anterior (solo las celdas de la ruta/camino)
+        #---------------------------------------------------------------
+
+        # Recorremos las filas y las columnas del mapa
+        for r in range(mapa.rows):
+            for col in range(mapa.cols):
+                # Buscamos coordenas con el valor de la ruta "4" y las reemplazamos por un camino libre "0"
+                if mapa.grid[r][col] == 4:
+                    mapa.grid[r][col] = 0
+        
