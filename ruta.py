@@ -29,10 +29,11 @@ class Mapa():
     # * Constructor: inicializa el mapa, bordes y edificios
     # -----------------------------------------------------------
 
-    def __init__(self, rows, cols):
+    def __init__(self, rows, cols, num_edificios = 5):
 
         self.rows = rows
         self.cols = cols
+        self.edificios = num_edificios
 
         # GENERAMOS EL MAPA
         self.grid = [ [0 for _ in range(cols)] for _ in range(rows) ]
@@ -89,6 +90,17 @@ class Mapa():
         print() # Separador
 
 
+    # -----------------------------------------------------------
+    # * agregar_edificio: genera un bloque 2x2 de edificios
+    # -----------------------------------------------------------
+
+    def agregar_edificio(self, fila, columna):
+
+        # Los bucles anidados recorren un cuadrado de 2x2 desde la ezquina suerior izquierda
+        for i in range(2):
+            for j in range(2):
+                if 0 <= fila + i < self.rows and 0 <= columna + j < self.cols: # Verifica que cada celda este dentro de los limites
+                    self.grid[fila + i][columna + j] = 1   
 
 
 
