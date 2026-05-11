@@ -29,7 +29,7 @@ class Mapa():
     # * Constructor: inicializa el mapa, bordes y edificios
     # -----------------------------------------------------------
 
-    def __init__(self, rows, cols, num_edificios = 5):
+    def __init__(self, rows, cols, num_edificios):
 
         self.rows = rows
         self.cols = cols
@@ -71,7 +71,7 @@ class Mapa():
     # * mostrar: imprime el mapa con emojis representativos
     # -----------------------------------------------------------
 
-    def mostrar(self, jugador=None):
+    def mostrar(self, jugador=None, destino=None, jugador2=None):
 
         # Simbolos del mapa asociados a sus numeros
         simbolos = {0: "⬛", 1: "🏢", 2: "🌊", 3: "⚠️ ", 4: "🟩"} # "⬛" = camino libre, "🏢" obstaculo fijo, "🌊" agua, "⚠️ " obs temporal, "🟩" ruta a destino, "?" desconocido
@@ -85,6 +85,13 @@ class Mapa():
                     # JUGADOR:
                     if jugador and (r, c) == jugador.posicion():
                         fila_visual.append(jugador.simbolo)       # Mete al jugador en el mapa
+                    # JUGADOR 2:
+                    elif jugador2 and (r, c) == jugador2.posicion():
+                        fila_visual.append(jugador2.simbolo)      # Mete al jugador 2 en el mapa
+                    # DESTINO:
+                    elif destino and (r, c) == destino.posicion():
+                        fila_visual.append(destino.simbolo)       # Mete el destino en el mapa
+                    # NO ENCONTRADO:
                     else:
                         fila_visual.append(simbolos.get(self.grid[r][c], "?"))  # Simbolos.get(v,"?") busca el emoji asociado al valor del numero,
                                                                                 # Si no lo encuentra pone: "?""
@@ -383,8 +390,9 @@ if __name__ == "__main__":
     # Pedimos primero el tamanho del mapa 
     filas = int(input("Filas del mapa: "))
     columnas = int(input("Columnas del mapa: "))
+    num_edificios = int(input("Cantidad de edificios: "))
 
-    mapa = Mapa(filas, columnas)
+    mapa = Mapa(filas, columnas, num_edificios)
 
 #------------------------------------
 # CREAR JUGADOR:
@@ -393,11 +401,25 @@ if __name__ == "__main__":
     # Pedimos la posicion del jugador y numero de edificios:
     fila_jugador    = int(input("Ingrese la fila del personaje: "))
     columna_jugador = int(input("Ingrese la columna del personaje: "))
-    num_edificios = int(input("Cantidad de edificios: "))
 
     # Creamos un jugador (objeto de la clase jugador)
     jugador = Jugador(fila_jugador, columna_jugador) 
 
     mapa.mostrar(jugador)
 
+#------------------------------------
+# CREAR SEGUNDO JUGADOR:
+#------------------------------------
 
+    jugador2 = None
+    print("Queres crear un segundo jugador?")
+    quiere = input("Desea agregar un segundo jugador: si/no: " ).lower()
+
+    if quiere == "si":
+        fila_jugador2    = int(input("Ingrese la fila del segundo personaje: "))
+        columna_jugador2 = int(input("Ingrese la columna del segundo personaje: "))
+        jugador2 = Jugador(fila_jugador2, columna_jugador2, simbolo="😇")
+    else: 
+        print("No se genero un segundo jugador")
+
+    mapa.mostrar(jugador)
