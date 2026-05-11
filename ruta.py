@@ -10,9 +10,9 @@
 # * LIBRERIAS:
 # =====================================
 
-import random
+import random, heapq
 # random: libreria que sirve para crear numeros aleatorios con diferentes herramientas
-
+# heapq: Crea una cola de elementos donde se atienden los de mayor prioridad
 
 # --- Recomendacion de tamanho ---
 print("Tamanhos del mapa recomendados 7x7, 10x10, 13x13, 16x16, 19x19...")
@@ -297,6 +297,58 @@ class BuscadorAEstrella:
                     resultado.append( (nr,nc) ) # La agregamos a la lista de resultados
 
         return resultado # Retornamos la lista de vecinos validosPrimero
+
+
+    #-----------------------------------------------------------
+    # calcular_ruta: Calcula la ruta para llegar al destino 
+    #-----------------------------------------------------------
+
+    def calcular_ruta(self, inicio, destino):
+
+        frontera = [] # Lista de lugares por explorar ordenados por prioridad (Costo real + Heuristica) contiene tuplas (prioridad, nodo/coordenada)]
+        heapq.heappush(frontera, (0, inicio) ) # Agrega el punto de inicio a la cola de prioridad de frontera con prioridad de 0
+        #                         prioridad, nodo
+        # heapq (libreria para trabajar con monticulos), .heappush(inserta un elemento en el monticulo)
+
+        de_donde_vengo  = {}          # Diccionario para reconstruir el camino
+        costo_acomulado = {inicio: 0} # Guarda el costo total de llegar a cada celda
+
+        # Vamos a repetir ese bucle mientras haya vecinos/puntos por explorar en la lista frontera
+        while frontera:
+            
+            # Sacamos el inicio y lo metemos en actual vaciando la lista
+            _, actual = heapq.heappop(frontera) # Tomamos el nodo/coordenada con menor prioridad (que seria el mas prometedor)
+#            │  │       │      │         │
+#            │  │       │      │         └─ La lista/heap de donde sacamos
+#            │  │       │      └─────────── Función que saca el elemento mínimo
+#            │  │       └────────────────── Módulo heapq
+#            │  └────────────────────────── Variable donde guardamos el NODO/Coordenada
+#            └───────────────────────────── Descartamos la prioridad (no la necesitamos)  
+# En caso de empate: Python elige el que tenga la coordenada menor según el orden lexicográfico (2,3) < (3,1).
+
+
+            # Si llegamos al destino terminamos el bucle
+            if actual == destino:
+                break
+            
+            # Evaluamos casillas vecinas:
+            for vecino in self.vecinos_validos(actual):
+
+                # Si vengo desde "actual" y me muevo al "vecino", el costo total sería """nuevo_costo"""
+
+                # Costo total = costo acomulado + costo de dezplasamiento 
+                costo_final = costo_acomulado[actual] + self.costos[self.mapa.grid[vecino[0]] [vecino[1]] ]
+                # f(n) = g(n) + h(n)
+
+                # Si nunca visite ese vecino o encontre un camino mas barato, entonces actualiza la informacion
+                if vecino not in costo_acomulado or costo_final < costo_acomulado[vecino]:
+
+                    # Datos de las casillas:
+                    costo_acomulado[vecino] = costo_final                      # El nuevo costo mas bajo
+                    prioridad = costo_final + self.Huristica(destino, vecino)  # Costo real + estimacion de lo que falta = (costo total)
+                    heapq.heappush(frontera, (prioridad, vecino) )             # Agregamos ese vecino a la lista de exploracion (frontera)
+                    de_donde_vengo[vecino] = actual                            # Recordamos de donde venimos (Cargando esa posicion actual en la lista)
+
 
 
 # ===============================================================
