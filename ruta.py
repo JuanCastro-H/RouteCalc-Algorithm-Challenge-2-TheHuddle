@@ -436,3 +436,23 @@ if __name__ == "__main__":
     mapa.mostrar(jugador, destino, jugador2) # Insertamos las coordenadas de las clases jugador y destino para el mapa
     # (Usando el metodo mostrar)
 
+#----------------------------------------------------------
+# CREAR EL BUSCADOR DE A ESTRELLA Y CALCULAR LA PRIMERA RUTA
+#----------------------------------------------------------
+
+    # Creamos el buscador (objeto) de buscador de rutas con la clase BuscadorAEstrella
+    buscador = BuscadorAEstrella(mapa) # le pasamos el argumento del mapa para que trabaje
+
+    # --- Definicion de Inicio/Fin ---
+    inicio  = jugador.posicion()
+    fin     = destino.posicion()
+
+    # Creamos el camino con el metodo calcular_ruta de la clase BuscadorAestrella
+    camino   = buscador.calcular_ruta(inicio, fin)
+
+    # Si existe un segundo jugador solicitamos su posicion y calculamos su ruta
+    inicio2 = None
+    camino_2 = []
+    if jugador2 is not None:
+        inicio2 = jugador2.posicion()
+        camino_2 = buscador.calcular_ruta(inicio2, fin)
