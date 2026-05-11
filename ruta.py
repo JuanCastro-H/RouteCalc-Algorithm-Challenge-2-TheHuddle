@@ -456,3 +456,25 @@ if __name__ == "__main__":
     if jugador2 is not None:
         inicio2 = jugador2.posicion()
         camino_2 = buscador.calcular_ruta(inicio2, fin)
+
+#----------------------------------------------------------
+# MOSTRAR EL RESULTADO DE LA RUTA
+#----------------------------------------------------------
+
+    # Mensaje por si no encontramos un camino posible
+    if not camino:
+        print("No se encontro ningun camino posible")
+    
+    else:
+        print(f"Camino encontrado con { len(camino) } pasos")
+        
+        # --- Pintar la ruta encontrada ---
+        for paso in camino + camino_2:
+            
+            r, c = paso
+            # Pintamos el camino en el mapa (sin borrar al jugador ni el destino)
+            if mapa.grid[r][c] in (0,2,3) :
+                mapa.grid[r][c] = 4 # 4 = ruta encontrada (🟩)
+        
+        mapa.mostrar(jugador,destino, jugador2) # Mostramos el nuevo mapa con la ruta encontrada
+        print("La ruta puede pasar por el agua y obstaculos temporales, aun que estos tengan mayor costo")
